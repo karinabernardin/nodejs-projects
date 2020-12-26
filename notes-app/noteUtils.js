@@ -4,8 +4,8 @@ const fileName = 'notes.json';
 
 const addNote = function (title, body) {
     const allNotes = getNotes();
-    const duplicateNotes = allNotes.filter((note) => note.title === title);
-    if (duplicateNotes.length === 0) {
+    const duplicateNote = allNotes.find((note) => note.title === title);
+    if (!duplicateNote) {
         allNotes.push({
             title: title,
             body: body
@@ -49,18 +49,12 @@ const listNotes = function() {
 
 const readNote = function(title) {
     const allNotes = getNotes();
-    const desiredNote = allNotes.filter((note) => note.title === title);
-    switch (desiredNote.length) {
-        case 0:
-            console.log(chalk.red.bold('Note not found'));
-            break;
-        case 1:
-            console.log(chalk.green.bold('Title: ' + desiredNote[0].title));
-            console.log(chalk.green.bold('Body: ' + desiredNote[0].body));
-            break;
-        default:
-            console.log(chalk.red.bold('Problem accessing note.'));
-            break;
+    const desiredNote = allNotes.find((note) => note.title === title);
+    if (desiredNote) {
+        console.log(chalk.blue.bold('Title: ' + desiredNote.title));
+        console.log(chalk.blue.bold('Body: ' + desiredNote.body));
+    } else {
+        console.log(chalk.red.bold('Note not found'));
     }
 }
 
