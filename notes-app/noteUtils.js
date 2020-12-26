@@ -41,8 +41,32 @@ const removeNote = function(title) {
     }
 };
     
+const listNotes = function() {
+    const allNotes = getNotes();
+    console.log(chalk.green.bold('Your notes:'));
+    allNotes.forEach((note) => console.log("- " + note.title));
+}
+
+const readNote = function(title) {
+    const allNotes = getNotes();
+    const desiredNote = allNotes.filter((note) => note.title === title);
+    switch (desiredNote.length) {
+        case 0:
+            console.log(chalk.red.bold('Note not found'));
+            break;
+        case 1:
+            console.log(chalk.green.bold('Title: ' + desiredNote[0].title));
+            console.log(chalk.green.bold('Body: ' + desiredNote[0].body));
+            break;
+        default:
+            console.log(chalk.red.bold('Problem accessing note.'));
+            break;
+    }
+}
 
 module.exports = {
     addNote,
     removeNote,
+    listNotes,
+    readNote
 }

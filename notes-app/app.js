@@ -31,5 +31,20 @@ yargs.command('remove', 'Remove note',
     (argv) => noteUtils.removeNote(argv.title)
 ).help().argv;
 
+yargs.command('list', 'List notes',
+    () => noteUtils.listNotes()
+).help().argv;
+
+yargs.command('read', 'Read note',
+    function (yargs) {
+    return yargs.option('t', {
+        alias: 'title',
+        describe: 'Note title',
+        demandOption: true,
+        type: 'string'
+    })
+    },
+    (argv) => noteUtils.readNote(argv.title)
+).help().argv;
 
 yargs.apply();
