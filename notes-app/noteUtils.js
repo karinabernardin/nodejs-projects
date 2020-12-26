@@ -4,15 +4,13 @@ const fileName = 'notes.json';
 
 const addNote = function (title, body) {
     const allNotes = getNotes();
-    const duplicateNotes = allNotes.filter(function (note) {
-        return (note.title === title);
-    });
+    const duplicateNotes = allNotes.filter((note) => note.title === title);
     if (duplicateNotes.length === 0) {
         allNotes.push({
             title: title,
             body: body
         });
-        fs.writeFileSync(fileName, JSON.stringify(allNotes));
+        writeNotes(allNotes);
         console.log(chalk.green.bold('New note added!'));
     } else {
         console.log(chalk.red.bold('Note title already exists.'));
@@ -25,17 +23,21 @@ const getNotes = function () {
     } catch (err) {
         return [];
     }
-}
+};
+
+const writeNotes = function (allNotes) {
+    fs.writeFileSync(fileName, JSON.stringify(allNotes));
+};
 
 const removeNote = function(title) {
     const allNotes = getNotes();
-    const noteIndex = allNotes.findIndex(function(note) {return (note.title === title)});
-    if (noteIndex === -1) {
-        console.log(chalk.red.bold('Note not found.'));
-    } else {
-        allNotes.splice(noteIndex, 1);
-        fs.writeFileSync(fileName, JSON.stringify(allNotes));
+    const notesToKeep = allNotes.filter((note) => note.title !== title);
+
+    if (allNotes > notesToKeep) {
+        writeNotes(notesToKeep);
         console.log(chalk.green.bold('Note successfully removed'));
+    } else {
+        console.log(chalk.red.bold('Note not found.'));
     }
 };
     

@@ -16,9 +16,7 @@ yargs.command('add', 'Add note',
         type: 'string'
     })
     },
-    function (argv) {
-    noteUtils.addNote(argv.title, argv.body)
-    }
+    (argv) => noteUtils.addNote(argv.title, argv.body)
 ).help().argv;
 
 yargs.command('remove', 'Remove note',
@@ -30,9 +28,7 @@ yargs.command('remove', 'Remove note',
         type: 'string'
     })
     },
-    function (argv) {
-    noteUtils.removeNote(argv.title)
-    }
+    (argv) => noteUtils.removeNote(argv.title)
 ).help().argv;
 
 
