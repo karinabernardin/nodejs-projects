@@ -15,3 +15,8 @@ Projects developed during Node.js course.
 
 
 `node app.js list`
+
+
+### weather app:
+
+`node app.js`
