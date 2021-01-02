@@ -19,4 +19,6 @@ Projects developed during Node.js course.
 
 ### weather app:
 
-`node app.js`
+`node app.js Londrina`
+
+`node app.js "São Paulo"`
