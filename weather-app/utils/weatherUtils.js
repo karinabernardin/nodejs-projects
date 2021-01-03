@@ -5,16 +5,16 @@ const baseURL = 'http://api.weatherstack.com/';
 
 
 const getCurrentWeather = (latitude, longitude, callback) => {
-    request({url: getURL(latitude, longitude, api_access_key), json: true}, (error, response, body) => {
+    request({url: getURL(latitude, longitude, api_access_key), json: true}, (error, { body } = {}) => { // { body }: destructuring of response | {}: default value
         if (error) {
             callback('Unable to access weather service.', undefined);
-        } else if (response.body.error) {
+        } else if (body.error) {
             callback('Unable to find current weather using specified location.', undefined);
         } else {
             callback(undefined, {
-                currentDescription: response.body.current.weather_descriptions[0],
-                currentTemperature: response.body.current.temperature,
-                currentFeelsLike: response.body.current.feelslike,
+                currentDescription: body.current.weather_descriptions[0],
+                currentTemperature: body.current.temperature,
+                currentFeelsLike: body.current.feelslike,
             })
         }
 });

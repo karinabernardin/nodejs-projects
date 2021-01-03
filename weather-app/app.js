@@ -6,18 +6,18 @@ const location = process.argv[2];
 if (!location) {
     console.log('Please provide a location.');
 } else {
-    locationUtils.getCoordinatesFromLocation(location, (error, data) => {
+    locationUtils.getCoordinatesFromLocation(location, (error, { latitude, longitude, location } = {}) => {
         if (error) {
             return console.log(error);
         }
     
-        weatherUtils.getCurrentWeather(data.latitude, data.longitude, (error, forecastData) => {
+        weatherUtils.getCurrentWeather(latitude, longitude, (error, {currentDescription, currentTemperature, currentFeelsLike}) => {
             if (error) {
                 return console.log(error);
             }
     
-            console.log(data.location);
-            console.log(forecastData.currentDescription + '. The current temperature is ' + forecastData.currentTemperature + '°C but the temperature sensation is of ' + forecastData.currentFeelsLike + '°C.');
+            console.log(location);
+            console.log(currentDescription + '. The current temperature is ' + currentTemperature + '°C but the temperature sensation is of ' + currentFeelsLike + '°C.');
         });
     });    
 }
