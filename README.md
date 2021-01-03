@@ -17,8 +17,17 @@ Projects developed during Node.js course.
 `node app.js list`
 
 
-### weather app:
+### weather app (command line):
 
 `node app.js Londrina`
 
 `node app.js "São Paulo"`
+
+### web-server:
+
+`node src/app.js`
+
+`nodemon src/app.js`
+
+http://localhost:3000/weather
+
