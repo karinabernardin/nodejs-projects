@@ -29,5 +29,13 @@ Projects developed during Node.js course.
 
 `nodemon src/app.js`
 
+`nodemon src/app.js -e js,hbs`
+ 
+http://localhost:3000/
+
+http://localhost:3000/help
+
+http://localhost:3000/about
+
 http://localhost:3000/weather
 
