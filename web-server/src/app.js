@@ -60,7 +60,7 @@ app.get('/weather', (req, res) => {
             res.send({
                 address: req.query.address,
                 location,
-                forecast: currentDescription + '. The current temperature is ' + currentTemperature + '°C but the temperature sensation is of ' + currentFeelsLike + '°C.',
+                forecast: currentDescription + '. The current temperature is ' + currentTemperature + '°C and the temperature sensation is of ' + currentFeelsLike + '°C.',
             });
         });
     });    
