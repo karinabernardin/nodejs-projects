@@ -37,5 +37,5 @@ http://localhost:3000/help
 
 http://localhost:3000/about
 
-http://localhost:3000/weather
+http://localhost:3000/weather?address=Londrina
 

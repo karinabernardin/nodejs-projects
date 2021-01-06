@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
+const locationUtils = require('./utils/locationUtils');
+const weatherUtils = require('./utils/weatherUtils');
 
 const app = express();
 
@@ -39,10 +41,30 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-    res.send({
-        location: 'My location',
-        forecast: 'The current temperature is 30°C'
-    });
+    if (!req.query.address) {
+        return res.send({
+            error: 'The request could not be executed. Please provide an address.'
+        });
+    }
+
+    locationUtils.getCoordinatesFromLocation(req.query.address, (error, { latitude, longitude, location } = {}) => {
+        if (error) {
+            return res.send({ error });
+        }
+            
+        weatherUtils.getCurrentWeather(latitude, longitude, (error, {currentDescription, currentTemperature, currentFeelsLike} = {}) => {
+            if (error) {
+                return res.send({ error });
+            }
+
+            res.send({
+                address: req.query.address,
+                location,
+                forecast: currentDescription + '. The current temperature is ' + currentTemperature + '°C but the temperature sensation is of ' + currentFeelsLike + '°C.',
+            });
+        });
+    });    
+
 })
 
 app.get('/help/*', (req, res) => {
